@@ -18,6 +18,7 @@ distro==1.7.0
 distro-info===1.1build1
 Django==5.0
 django-bootstrap4==23.2
+django-debug-toolbar==4.2.0
 djangorestframework==3.14.0
 djangorestframework-simplejwt==5.3.1
 duplicity==0.8.21
