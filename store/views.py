@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from .models import *
 from .serializers import *
 from rest_framework import status , generics, mixins, viewsets
+from rest_framework.decorators import action
+from .pagination import CustomPagination
 # from rest_framework.views import APIView
 
 
@@ -18,6 +20,7 @@ class CategoryViewset(viewsets.ModelViewSet):
 class ProductViewset(viewsets.ModelViewSet):
     queryset=Product.objects.select_related('category').all()
     serializer_class=ProductSerializer
+    pagination_class=CustomPagination
 
 # #generics class based view
 # class CategoryList(generics.ListCreateAPIView):
