@@ -14,6 +14,10 @@ from rest_framework import status , generics, mixins, viewsets
 class CategoryViewset(viewsets.ModelViewSet):
     queryset=Category.objects.all()
     serializer_class=CategorySerializer
+    
+class ProductViewset(viewsets.ModelViewSet):
+    queryset=Product.objects.select_related('category').all()
+    serializer_class=ProductSerializer
 
 # #generics class based view
 # class CategoryList(generics.ListCreateAPIView):
