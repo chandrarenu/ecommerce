@@ -9,16 +9,42 @@ from rest_framework.views import APIView
 
 # Create your views here.
 
-
-class CategoryList(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
+#generics class based view
+class CategoryList(generics.ListCreateAPIView):
     queryset=Category.objects.all()
     serializer_class=CategorySerializer
+
+
+class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset=Category.objects.all()
+    serializer_class=CategorySerializer
+
+# #mixins and generics
+# class CategoryList(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
+#     queryset=Category.objects.all()
+#     serializer_class=CategorySerializer
     
-    def get(self,request):
-        return self.list(request)
+#     def get(self,request):
+#         return self.list(request)
     
-    def post(self,request):
-        return self.create(request)
+#     def post(self,request):
+#         return self.create(request)
+
+
+# class CategoryDetail(mixins.RetrieveModelMixin,mixins.UpdateModelMixin,mixins.DestroyModelMixin,generics.GenericAPIView):
+   
+#     queryset=Category.objects.all()
+#     serializer_class=CategorySerializer
+    
+#     def get(self,request,*args,**kwrags):
+#             return self.retrieve(request,*args,**kwrags)
+        
+#     def put(self,request,*args,**kwargs):
+#         return self.update()
+    
+#     def delete(self,request,*args,**kwargs):
+#         return self.destroy() 
+
         
 # class CategoryList(APIView):
     
@@ -39,19 +65,6 @@ class CategoryList(mixins.ListModelMixin,mixins.CreateModelMixin,generics.Generi
     #     status=status.HTTP_201_CREATED)
     
         
-class CategoryDetail(mixins.RetrieveModelMixin,mixins.UpdateModelMixin,mixins.DestroyModelMixin,generics.GenericAPIView):
-   
-    queryset=Category.objects.all()
-    serializer_class=CategorySerializer
-    
-    def get(self,request,*args,**kwrags):
-            return self.retrieve(request,*args,**kwrags)
-        
-    def put(self,request,*args,**kwargs):
-        return self.update()
-    
-    def delete(self,request,*args,**kwargs):
-        return self.destroy() 
 
 # class CategoryDetail(APIView):
     
