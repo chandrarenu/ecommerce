@@ -1,23 +1,29 @@
-from django.shortcuts import render,get_object_or_404
-from rest_framework.decorators import api_view
+# from django.shortcuts import render,get_object_or_404
+# from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import *
 from .serializers import *
-from rest_framework import status , generics, mixins
-from rest_framework.views import APIView
+from rest_framework import status , generics, mixins, viewsets
+# from rest_framework.views import APIView
 
 
 # Create your views here.
 
-#generics class based view
-class CategoryList(generics.ListCreateAPIView):
+
+#model viewsets
+class CategoryViewset(viewsets.ModelViewSet):
     queryset=Category.objects.all()
     serializer_class=CategorySerializer
 
+# #generics class based view
+# class CategoryList(generics.ListCreateAPIView):
+#     queryset=Category.objects.all()
+#     serializer_class=CategorySerializer
 
-class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset=Category.objects.all()
-    serializer_class=CategorySerializer
+
+# class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset=Category.objects.all()
+#     serializer_class=CategorySerializer
 
 # #mixins and generics
 # class CategoryList(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
