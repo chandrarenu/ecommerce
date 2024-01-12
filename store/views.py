@@ -21,6 +21,8 @@ class ProductViewset(viewsets.ModelViewSet):
     queryset=Product.objects.select_related('category').all()
     serializer_class=ProductSerializer
     pagination_class=CustomPagination
+    
+
 
 # #generics class based view
 # class CategoryList(generics.ListCreateAPIView):
