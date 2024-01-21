@@ -48,13 +48,13 @@ def register(request):
 
 @api_view(['POST'])
 def login(request):
-    username=request.data.get('username')
+    email=request.data.get('email')
     password=request.data.get('password')
     
     
     
     
-    user=authenticate(username=username,password=password)
+    user=authenticate(username=email,password=password)
     
     if user:
         # Create a token for the user

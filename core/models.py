@@ -9,8 +9,9 @@ class CustomUserManager(UserManager):
     #protected method
     #create user logic
     def _create_user(self, email, password, **extra_fields):
-        username=email.split("@")[0]+str(randint(0,10000))
+        username=email.split("@")[0]+str(randint(1, 999999))
         user = User(email=email, username=username, **extra_fields)
+        # password encrpytion
         user.password = make_password(password)
         user.save()
         return user

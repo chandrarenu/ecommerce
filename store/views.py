@@ -6,6 +6,8 @@ from .serializers import *
 from rest_framework import status , generics, mixins, viewsets
 from rest_framework.decorators import action
 from .pagination import CustomPagination
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from .permissions import *
 # from rest_framework.views import APIView
 
 
@@ -16,6 +18,11 @@ from .pagination import CustomPagination
 class CategoryViewset(viewsets.ModelViewSet):
     queryset=Category.objects.all()
     serializer_class=CategorySerializer
+    permission_classes=(
+        IsAuthenticatedOrReadOnly,
+        IsAdminOrNot
+        
+    )
     
 class ProductViewset(viewsets.ModelViewSet):
     queryset=Product.objects.select_related('category').all()
