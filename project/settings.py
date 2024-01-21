@@ -40,12 +40,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'core',
     'store',
     'rest_framework',
     'rest_framework.authtoken',
-    'debug_toolbar',
     'drf_yasg',
-    'core',
+    'debug_toolbar',
+    
+   
+    
     
 ]
 
@@ -87,9 +90,9 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DB_NAME', 'ecommerce'),
-        'USER': os.getenv('DB_USER', 'ecommerce'),
-        'PASSWORD': os.getenv('DB_PASSWORD', '1234'),
+        'NAME': os.getenv('DB_NAME', 'ecom'),
+        'USER': os.getenv('DB_USER', 'root'),
+        'PASSWORD': os.getenv('DB_PASSWORD', ''),
         'HOST': os.getenv('DB_HOST', 'localhost'),
         'PORT': os.getenv('DB_PORT', '3306'),
     }
@@ -147,3 +150,5 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
+
+AUTH_USER_MODEL="core.User"
