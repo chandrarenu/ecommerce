@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model
 from .serializers import *
 
 
-User=get_user_model
+User=get_user_model()
 
 # Create your views here.
 
@@ -16,8 +16,14 @@ User=get_user_model
 def register(request):
     serializer = UserSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
+    email = serializer.validated_data.get('email')
+    password = serializer.validated_data.get('password')
     
-    return Response('ok')
+    user=User.objects.create_user(email=email,password=password)
+    
+    if user:
+        return Response('user has been created')
+    return Response("something went wrong")
     
     
     

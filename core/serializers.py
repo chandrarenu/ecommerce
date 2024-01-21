@@ -1,5 +1,9 @@
 from rest_framework import serializers
+from django.contrib.auth import get_user_model
+User = get_user_model()
+from random import randint
 from .models import *
+
 
 class UserSerializer(serializers.Serializer):
     email=serializers.EmailField()
@@ -14,12 +18,17 @@ class UserSerializer(serializers.Serializer):
     #         })
     #     return value
     
+    def validate_email(self, value):
+        user = User.objects.filter(email=value).exists()
+        if user:
+            raise serializers.ValidationError("This email is already in use")
+        return value
+        
     
     #OR YO tala VAKO GRNA MILXA N YO MULTIPLE KO LAGI JSTAI MA CONFIRM PASSWORD KO LAGI NI 
-    
     def validate(self, attrs):
         
-        if len(attrs.get('password')) != attrs.get('confirm_password'):
+        if attrs.get('password') != attrs.get('confirm_password'):
             raise serializers.ValidationError({
                 'details': "The password and confirm password does not match"
             })
