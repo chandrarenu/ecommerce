@@ -2,9 +2,20 @@ from rest_framework import serializers
 from .models import *
 
 class CategorySerializer(serializers.ModelSerializer):
+    total_product=serializers.IntegerField()
     class Meta:
         model = Category
-        fields = ['id', 'name',]  
+        fields = ('id', 'name','total_product',)  
+        
+        
+    # def get_total_product(self,category:Category):
+    #         return category.products.count()
+        
+class SimpleCategorySerializer(serializers.ModelSerializer):
+   
+    class Meta:
+        model = Category
+        fields = ('id', 'name',)  
         
 class ProductSerializer(serializers.ModelSerializer):
     price_with_tax=serializers.SerializerMethodField()
@@ -12,7 +23,7 @@ class ProductSerializer(serializers.ModelSerializer):
         queryset=Category.objects.all()
         ,source='category'
     )
-    category=CategorySerializer(read_only=True)
+    category=SimpleCategorySerializer(read_only=True)
     
     class Meta:
         model=Product
@@ -28,6 +39,13 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def get_price_with_tax(self,product:Product):
         return(product.discounted_price * 0.13 )+product.discounted_price
+    
+class CustomerSerializer(serializers.ModelSerializer):
+    class Meta:
+        models = Customer
+        fields = "__all__"
+    
+     
 # class CategorySerializer(serializers.Serializer):
 #     id = serializers.IntegerField(read_only=True)
 #     name = serializers.CharField()

@@ -16,7 +16,7 @@ class Product(models.Model):
     quantity=models.IntegerField(default=0)
     price=models.DecimalField( max_digits=5, decimal_places=2)
     discounted_price=models.FloatField()
-    category=models.ForeignKey(Category,on_delete=models.CASCADE)
+    category=models.ForeignKey(Category,on_delete=models.CASCADE,related_name="products")
     
     
     def str(self):

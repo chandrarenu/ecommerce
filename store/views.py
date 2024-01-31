@@ -8,6 +8,10 @@ from rest_framework.decorators import action
 from .pagination import CustomPagination
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .permissions import *
+from django_filters import rest_framework as filters
+from rest_framework import filters as f
+from .filters import ProductFilter
+from django.db.models import Q,Count,Prefetch
 # from rest_framework.views import APIView
 
 
@@ -24,10 +28,27 @@ class CategoryViewset(viewsets.ModelViewSet):
         
     )
     
+    def get_queryset(self):
+        return Category.objects.prefetch_related(
+               "products"
+            ) \
+            .annotate(
+                total_product=Count('products')
+            ) \
+            .all()
+    
 class ProductViewset(viewsets.ModelViewSet):
     queryset=Product.objects.select_related('category').all()
     serializer_class=ProductSerializer
     pagination_class=CustomPagination
+    filter_backends=(filters.DjangoFilterBackend,f.SearchFilter,)
+    filterset_class = ProductFilter
+    search_fields=('name',)
+    
+    
+class Customer(viewsets.ModelViewSet):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
     
 
 
